@@ -1,5 +1,5 @@
 ## 注册接口
-1. 接口地址：http：//localhost：3000/api/login
+1. 接口地址：http：//localhost：3000/api/register
 2. 请求方式：post
 3. 请求参数
 |参数名字|参数类型|是否必须|描述|
