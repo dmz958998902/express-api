@@ -36,7 +36,40 @@ router.post("/register",async(req,res)=>{
         })
     }
 });
-router.post("/login",(req,res)=>{
-    res.send("登录");
+router.post("/login",async(req,res)=>{
+    //接受前端传递过来的文档
+    let email=req.body.email;
+    let password=req.body.password;
+    //查询数据库
+    let data=await UserModel.findOne({email:email});
+    //判断是否存在
+    if(!data){
+        res.send({
+            code:-1,
+            ms:"用户名输入错误"
+        });
+        return;
+    }
+    //存在，在判断密码
+    let ok= bcryptjs.compareSync(password,data.password);
+    if(!ok){
+        res.send({
+            code:-1,
+            ms:"用户名或密码输入错误"
+        })
+        return;
+    }
+    //登录成功
+    res.send({
+        code:0,
+        ms:"登陆成功",
+        data:{
+            user:{
+                id:data._id,
+                email:data.email,
+                username:data.username
+            }
+        }
+    })
 });
 module.exports=router;

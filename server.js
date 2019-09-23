@@ -1,6 +1,7 @@
 //引入express
 const express=require("express");
 const userRouter=require("./rout/user");
+const postsRouter=require("./rout/posts");
 const app=express();
 
 //处理req.body
@@ -15,5 +16,5 @@ app.use((req,res,next)=>{
 app.use(express.static("public"));
 //引入各种路由中间件
 app.use("/api",userRouter);
-
+app.use("/api",postsRouter);
 app.listen(3000);
